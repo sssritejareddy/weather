@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>weather app</title>
+  </head>
+  <body>
+      <label for="cityinput">cityname:</label>
+      <input id="cityinput" type="text" name="cityname" value="">
+      <button type="submit" name="button" onclick="getdata()">Go</button>
+      <div id="data">
+
+
+      </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function getdata(){
+var d=document.getElementById('cityinput').value;
+var params = {
+        "message_str": d,
+      }
+$.ajax({
+    url:"https://h5g3kpk7pb.execute-api.us-east-1.amazonaws.com/teja1",
+    method:"POST",
+    data:JSON.stringify(params),
+    datatype:JSON,
+    cache:false,
+ success:function(result){
+  if(result!=null)
+  {
+  var res = result.split(';');
+  var da='<h3>The weather is currently: '+res[0]+'</h3><h3>The temperature in '+res[2]+' is '+res[1]+' degree celcius';
+  }
+  else
+  {
+    var da="<h3>Sorry we can't find the city" +res[0]+ ".Please enter it correctly</h3>"
+  }
+  $("#data").html(da);
+}
+});
+
+}
+</script>
+
+  </body>
+</html>
